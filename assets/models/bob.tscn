@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://dcwfo6celhhke"]
+
+[ext_resource type="Material" uid="uid://b87ayi4156oka" path="res://assets/sfx/red.tres" id="1_10nn0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ael6c"]
+cull_mode = 1
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uo8dd"]
+height = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_rlxyb"]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ju4jv"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6sgwu"]
+material = SubResource("StandardMaterial3D_ju4jv")
+radius = 0.02
+height = 0.02
+
+[sub_resource type="Gradient" id="Gradient_i4q2d"]
+offsets = PackedFloat32Array(0, 0.5322581, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n66ho"]
+gradient = SubResource("Gradient_i4q2d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f4nvx"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_n66ho")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ikqo7"]
+material = ExtResource("1_10nn0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Bob" type="MeshInstance3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_ael6c")
+mesh = SubResource("CapsuleMesh_uo8dd")
+surface_material_override/0 = ExtResource("1_10nn0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.153, 0.324, 0.48)
+mesh = SubResource("SphereMesh_rlxyb")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("SphereMesh_6sgwu")
+skeleton = NodePath("../..")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_f4nvx")
+draw_pass_1 = SubResource("BoxMesh_ikqo7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.153, 0.324, 0.48)
+mesh = SubResource("SphereMesh_rlxyb")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("SphereMesh_6sgwu")
+skeleton = NodePath("../..")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3645161, 0)
+billboard = 1
+modulate = Color(0.54901963, 0.11764706, 0.1254902, 1)
+text = "BOB THE CREATOR"

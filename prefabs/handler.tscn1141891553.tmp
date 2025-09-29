@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvjr04hue2iay"]
+
+[ext_resource type="Script" uid="uid://ci1gcmyfajfvf" path="res://scripts/handler.gd" id="1_mpweb"]
+[ext_resource type="PackedScene" uid="uid://cnlqhaltlkfjt" path="res://prefabs/world.tscn" id="2_cggjq"]
+[ext_resource type="PackedScene" uid="uid://bve2xvqs2j3cm" path="res://prefabs/menu.tscn" id="2_gbxyt"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_mpweb")
+
+[node name="World" parent="." instance=ExtResource("2_cggjq")]
+visible = false
+
+[node name="CanvasLayer" parent="." instance=ExtResource("2_gbxyt")]
+
+[connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+
+[editable path="World"]
+[editable path="CanvasLayer"]

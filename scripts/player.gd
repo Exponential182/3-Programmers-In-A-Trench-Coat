@@ -1,11 +1,20 @@
 extends CharacterBody3D
 
+@onready var camera = $head/Camera3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+
+func _ready():
+	if not is_multiplayer_authority(): return
+	
+	camera.current = true
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

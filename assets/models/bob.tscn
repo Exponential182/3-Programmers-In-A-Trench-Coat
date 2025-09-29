@@ -1,13 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcwfo6celhhke"]
+[gd_scene load_steps=10 format=3 uid="uid://dcwfo6celhhke"]
 
 [ext_resource type="Material" uid="uid://b87ayi4156oka" path="res://assets/sfx/red.tres" id="1_10nn0"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ael6c"]
-cull_mode = 1
-grow = true
-grow_amount = 0.05
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_uo8dd"]
+material = ExtResource("1_10nn0")
 height = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_rlxyb"]
@@ -42,9 +38,7 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Bob" type="MeshInstance3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-material_overlay = SubResource("StandardMaterial3D_ael6c")
 mesh = SubResource("CapsuleMesh_uo8dd")
-surface_material_override/0 = ExtResource("1_10nn0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.153, 0.324, 0.48)

@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnlqhaltlkfjt"]
+[gd_scene load_steps=6 format=3 uid="uid://cnlqhaltlkfjt"]
 
 [ext_resource type="Script" uid="uid://dlx35otjcbybs" path="res://scripts/world.gd" id="1_8tlfu"]
-[ext_resource type="Texture2D" uid="uid://cxpjrmpy3oqol" path="res://assets/images/icon.svg" id="2_wwc5h"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6be4p"]
-albedo_texture = ExtResource("2_wwc5h")
-uv1_scale = Vector3(100, 100, 100)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tlfu"]
+albedo_color = Color(0.24010295, 0.69756687, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4d63b"]
 size = Vector3(100, 0.1, 100)
@@ -27,7 +25,7 @@ script = ExtResource("1_8tlfu")
 [node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 size = Vector3(100, 0.1, 100)
-material = SubResource("StandardMaterial3D_6be4p")
+material = SubResource("StandardMaterial3D_8tlfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_4d63b")

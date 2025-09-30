@@ -16,17 +16,30 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("head/Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("head/Username:text")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_4dohe")
 
 [node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3225105, 0)
+
+[node name="Bob" parent="head" instance=ExtResource("2_r66lb")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.3225105, 0)
+layers = 5
+skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.345, -0.4603352)
+cull_mask = 1048573
 
-[node name="Bob" parent="." instance=ExtResource("2_r66lb")]
+[node name="Username" type="Label3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9891963, 0)
+billboard = 1
+modulate = Color(0.54901963, 0.11764706, 0.1254902, 1)
+text = "BOB THE CREATOR"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1txc5")

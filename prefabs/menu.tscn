@@ -42,3 +42,8 @@ text = "Join"
 layout_mode = 2
 placeholder_text = "Enter Address to Join"
 alignment = 1
+
+[node name="Username" type="LineEdit" parent="Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Username"
+alignment = 1

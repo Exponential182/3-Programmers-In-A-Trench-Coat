@@ -3,6 +3,7 @@ extends Node
 @onready var main_menu = $"CanvasLayer/Main Menu"
 @onready var world = $World
 @onready var ip_entry = $"CanvasLayer/Main Menu/MarginContainer/VBoxContainer/IPEntry"
+@onready var username_entry = $"CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Username"
 
 const Player = preload("res://prefabs/player.tscn")
 const PORT = 53431
@@ -30,7 +31,11 @@ func _on_join_button_pressed() -> void:
 
 
 func add_player(peer_id):
+	
 	var player = Player.instantiate()
 	player.position.y += 1
 	player.name = str(peer_id)
+	print(username_entry.text)
+	if username_entry.text:
+		player.username = username_entry.text
 	$World/Players.add_child(player)

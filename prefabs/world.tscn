@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnlqhaltlkfjt"]
+[gd_scene load_steps=15 format=3 uid="uid://cnlqhaltlkfjt"]
 
 [ext_resource type="Script" uid="uid://dlx35otjcbybs" path="res://scripts/world.gd" id="1_8tlfu"]
+[ext_resource type="Texture2D" uid="uid://d3k1ttljb2box" path="res://assets/images/icon.svg" id="2_6be4p"]
+[ext_resource type="Script" uid="uid://cicsvlu23dgnv" path="res://scripts/red_car.gd" id="3_4d63b"]
+[ext_resource type="ArrayMesh" uid="uid://cwj7oraq4bs25" path="res://assets/models/ImageToStl.com_Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889/Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889.obj" id="3_6be4p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d63b"]
+albedo_texture = ExtResource("2_6be4p")
+uv1_scale = Vector3(100, 100, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tlfu"]
-albedo_color = Color(0.24010295, 0.69756687, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4d63b"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_07nuu"]
 size = Vector3(100, 0.1, 100)
 
 [sub_resource type="Sky" id="Sky_6be4p"]
@@ -15,22 +24,114 @@ background_mode = 2
 sky = SubResource("Sky_6be4p")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-fog_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4284n"]
+albedo_color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_07nuu"]
+material = SubResource("StandardMaterial3D_4284n")
+height = 0.3
+radial_segments = 12
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4284n"]
+size = Vector3(1.5530444, 1.0860351, 6.167827)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4d63b"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_8tlfu")
+
+[node name="Floor2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49048376, 22.007229)
+metadata/_edit_group_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4d63b")
+size = Vector3(10, 0.1, 10)
+material = SubResource("StandardMaterial3D_8tlfu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
+shape = SubResource("BoxShape3D_4d63b")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4d63b")
 size = Vector3(100, 0.1, 100)
 material = SubResource("StandardMaterial3D_8tlfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_4d63b")
+shape = SubResource("BoxShape3D_07nuu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4d63b")
 
 [node name="Players" type="Node" parent="."]
+
+[node name="red_car" type="VehicleBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556621, 0)
+script = ExtResource("3_4d63b")
+
+[node name="red_car_1" type="MeshInstance3D" parent="red_car"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+mesh = ExtResource("3_6be4p")
+skeleton = NodePath("../..")
+
+[node name="FL_Wheel" type="VehicleWheel3D" parent="red_car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0753704, -0.3377267, 1.6117401)
+use_as_steering = true
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="red_car/FL_Wheel"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_07nuu")
+
+[node name="FR_Wheel" type="VehicleWheel3D" parent="red_car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0114807, -0.3377267, 1.6117401)
+use_as_steering = true
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="red_car/FR_Wheel"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_07nuu")
+
+[node name="BL_Wheel" type="VehicleWheel3D" parent="red_car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0753704, -0.3377267, -1.8108699)
+use_as_traction = true
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="red_car/BL_Wheel"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_07nuu")
+
+[node name="BR_Wheel" type="VehicleWheel3D" parent="red_car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0109924, -0.33821368, -1.8107288)
+use_as_traction = true
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="red_car/BR_Wheel"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_07nuu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="red_car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.036109626, 0.10698247, -0.034250498)
+shape = SubResource("BoxShape3D_4284n")
+
+[node name="Camera3D" type="Camera3D" parent="red_car"]
+transform = Transform3D(-1, 7.619397e-09, -8.709011e-08, 0, 0.9961947, 0.08715574, 8.742278e-08, 0.08715574, -0.9961947, 0, 1.557, -5.861)
+cull_mask = 1048573
+attributes = SubResource("CameraAttributesPractical_4d63b")

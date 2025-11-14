@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnlqhaltlkfjt"]
+[gd_scene load_steps=17 format=3 uid="uid://cnlqhaltlkfjt"]
 
 [ext_resource type="Script" uid="uid://dlx35otjcbybs" path="res://scripts/world.gd" id="1_8tlfu"]
 [ext_resource type="Texture2D" uid="uid://c768pt1bgwi0q" path="res://assets/images/grass.png" id="2_07nuu"]
 [ext_resource type="Script" uid="uid://cicsvlu23dgnv" path="res://scripts/red_car.gd" id="3_4d63b"]
 [ext_resource type="ArrayMesh" uid="uid://cwj7oraq4bs25" path="res://assets/models/ImageToStl.com_Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889/Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889.obj" id="3_6be4p"]
+[ext_resource type="Script" uid="uid://ddmr08lum4t3a" path="res://scripts/camera_pivot.gd" id="5_5f5nf"]
 [ext_resource type="PackedScene" uid="uid://j64gfatmfhdo" path="res://prefabs/track/track_corner.tscn" id="5_4284n"]
 [ext_resource type="PackedScene" uid="uid://6kttc7qe3b0m" path="res://prefabs/track/track_straight.tscn" id="6_5f5nf"]
 
@@ -46,7 +47,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 [node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4d63b")
-size = Vector3(1000, 0.1, 1000)
+size = Vector3(1000, 0.5, 1000)
 material = SubResource("StandardMaterial3D_8tlfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -121,9 +122,10 @@ mesh = SubResource("CylinderMesh_07nuu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.036109626, 0.10698247, -0.034250498)
 shape = SubResource("BoxShape3D_4284n")
 
-[node name="Node3D" type="Node3D" parent="red_car"]
+[node name="camera_pivot" type="Node3D" parent="red_car"]
+script = ExtResource("5_5f5nf")
 
-[node name="Camera3D" type="Camera3D" parent="red_car/Node3D"]
+[node name="camera" type="Camera3D" parent="red_car/camera_pivot"]
 transform = Transform3D(-1, 1.316015e-08, -1.5042122e-07, 0, 0.9961947, 0.08715574, 1.509958e-07, 0.08715574, -0.9961947, 0, 1.5569999, -5.861)
 cull_mask = 1048573
 attributes = SubResource("CameraAttributesPractical_4d63b")

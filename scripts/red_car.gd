@@ -1,11 +1,10 @@
 extends VehicleBody3D
 
 
-var max_rpm = 500
-var max_torque = 200
-var engine_force_multiplier = 100
+var max_rpm = 5000
+var max_torque = 2000
 var steering_multiplier = 0.4
-@onready var camera = $"Camera3D"
+#@onready var camera = $"Camera3D"
 func _physics_process(delta: float) -> void:
 	steering = lerp(steering, Input.get_axis("right","left") * steering_multiplier, 5 * delta)
 	var acceleration = Input.get_axis("backward","forward")

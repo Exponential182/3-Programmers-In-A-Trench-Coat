@@ -1,21 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnlqhaltlkfjt"]
+[gd_scene load_steps=16 format=3 uid="uid://cnlqhaltlkfjt"]
 
 [ext_resource type="Script" uid="uid://dlx35otjcbybs" path="res://scripts/world.gd" id="1_8tlfu"]
-[ext_resource type="Texture2D" uid="uid://d3k1ttljb2box" path="res://assets/images/icon.svg" id="2_6be4p"]
+[ext_resource type="Texture2D" uid="uid://c768pt1bgwi0q" path="res://assets/images/grass.png" id="2_07nuu"]
 [ext_resource type="Script" uid="uid://cicsvlu23dgnv" path="res://scripts/red_car.gd" id="3_4d63b"]
 [ext_resource type="ArrayMesh" uid="uid://cwj7oraq4bs25" path="res://assets/models/ImageToStl.com_Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889/Copilot3D-56856058-09e5-42d7-acc4-5af06c5f5889.obj" id="3_6be4p"]
+[ext_resource type="PackedScene" uid="uid://j64gfatmfhdo" path="res://prefabs/track/track_corner.tscn" id="5_4284n"]
+[ext_resource type="PackedScene" uid="uid://6kttc7qe3b0m" path="res://prefabs/track/track_straight.tscn" id="6_5f5nf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d63b"]
-albedo_texture = ExtResource("2_6be4p")
-uv1_scale = Vector3(100, 100, 100)
+albedo_texture = ExtResource("2_07nuu")
+uv1_scale = Vector3(150, 150, 150)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tlfu"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4d63b"]
-size = Vector3(10, 0.1, 10)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_07nuu"]
-size = Vector3(100, 0.1, 100)
+size = Vector3(1000, 0.1, 1000)
 
 [sub_resource type="Sky" id="Sky_6be4p"]
 
@@ -41,25 +40,13 @@ size = Vector3(1.5530444, 1.0860351, 6.167827)
 [node name="World" type="Node3D"]
 script = ExtResource("1_8tlfu")
 
-[node name="Floor2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49048376, 22.007229)
-metadata/_edit_group_ = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Floor2"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_4d63b")
-size = Vector3(10, 0.1, 10)
-material = SubResource("StandardMaterial3D_8tlfu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
-shape = SubResource("BoxShape3D_4d63b")
-
 [node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4d63b")
-size = Vector3(100, 0.1, 100)
+size = Vector3(1000, 0.1, 1000)
 material = SubResource("StandardMaterial3D_8tlfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -72,6 +59,9 @@ environment = SubResource("Environment_4d63b")
 
 [node name="red_car" type="VehicleBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556621, 0)
+mass = 400.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.2, 0)
 script = ExtResource("3_4d63b")
 
 [node name="red_car_1" type="MeshInstance3D" parent="red_car"]
@@ -131,7 +121,17 @@ mesh = SubResource("CylinderMesh_07nuu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.036109626, 0.10698247, -0.034250498)
 shape = SubResource("BoxShape3D_4284n")
 
-[node name="Camera3D" type="Camera3D" parent="red_car"]
-transform = Transform3D(-1, 7.619397e-09, -8.709011e-08, 0, 0.9961947, 0.08715574, 8.742278e-08, 0.08715574, -0.9961947, 0, 1.557, -5.861)
+[node name="Node3D" type="Node3D" parent="red_car"]
+
+[node name="Camera3D" type="Camera3D" parent="red_car/Node3D"]
+transform = Transform3D(-1, 1.316015e-08, -1.5042122e-07, 0, 0.9961947, 0.08715574, 1.509958e-07, 0.08715574, -0.9961947, 0, 1.5569999, -5.861)
 cull_mask = 1048573
 attributes = SubResource("CameraAttributesPractical_4d63b")
+
+[node name="track_corner" parent="." instance=ExtResource("5_4284n")]
+
+[node name="track_corner2" parent="." instance=ExtResource("5_4284n")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.765, 0, 19.705)
+
+[node name="track_straight" parent="." instance=ExtResource("6_5f5nf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.748, 0, 30.914)
